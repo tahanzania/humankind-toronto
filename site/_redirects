@@ -1,0 +1,6 @@
+# 301s from old Squarespace URLs that were renamed (Netlify / Cloudflare Pages format).
+# /about, /annual-drives, /contact and /donate keep the same path, so they need no rule.
+/on-site                   /programs             301
+/fundraising               /create-for-a-cause   301
+/create-for-a-cause-2026   /create-for-a-cause   301
+/covid19-1                 /our-story            301

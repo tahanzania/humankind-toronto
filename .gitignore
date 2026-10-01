@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+
+# Original full-resolution photos (161 MB) live outside the repo (Drive/Dropbox).
+# The optimized copies the site uses are in site/assets/img/.
+hK website photo options */
+
+# Local tooling
+node_modules/
+*.log
