@@ -1,6 +1,12 @@
 # 301s from old Squarespace URLs that were renamed (Netlify / Cloudflare Pages format).
 # /about, /annual-drives, /contact and /donate keep the same path, so they need no rule.
+# The old per-year pages (/fundraising/create-for-a-cause-2025 etc.) all land on the Past Events page.
 /on-site                   /programs             301
-/fundraising               /create-for-a-cause   301
+/fundraising               /past-events          301
+/fundraising/*             /past-events          301
 /create-for-a-cause-2026   /create-for-a-cause   301
 /covid19-1                 /our-story            301
+/annual-drives/no-more-cold-feet-sock-drive   /sock-drive         301
+/annual-drives/give-the-gift-of-hope           /gift-of-hope       301
+/annual-drives/project-backpack-summer         /project-lunchbox   301
+/recipes                   /programs             301

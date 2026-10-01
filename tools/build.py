@@ -18,6 +18,7 @@ IG = "https://www.instagram.com/humankind_toronto"
 FB = "https://www.facebook.com/humankindTO"
 DONATE_FORM = "https://glassregister.societ.com/humankindtoronto/form?id=a23be75d-485c-4596-a85a-f2bd7a215c3a"
 CHARITY_NO = "70047 3002 RC001"
+LASTMOD = "2026-10-01"  # update when content changes
 EVENT_ISO = "2026-11-20"
 EVENT_HUMAN = "November 20, 2026"
 
@@ -74,8 +75,15 @@ NAV = [
         ("project-lunchbox.html", "Project Lunchbox", "A meal is more than food"),
         ("gift-of-hope.html", "Gift of Hope", "For a fresh start"),
     ]),
-    ("Create for a Cause", "create-for-a-cause.html", None),
-    ("Volunteer", "volunteer.html", None),
+    ("Create for a Cause", None, [
+        ("create-for-a-cause.html", "Create for a Cause 2026", "Save the date: Nov 20"),
+        ("past-events.html", "Past Events", "2019 to 2025"),
+    ]),
+    ("Get Involved", None, [
+        ("volunteer.html", "Volunteer", "Join our circle"),
+        ("host-a-fundraiser.html", "Host a Fundraiser", "Bake sales, classes &amp; more"),
+        ("partner-with-us.html", "Partner With Us", "For local businesses"),
+    ]),
     ("Contact", "contact.html", None),
 ]
 
@@ -156,7 +164,10 @@ def footer():
         <ul>
           <li><a href="annual-drives.html">Annual Drives</a></li>
           <li><a href="create-for-a-cause.html">Create for a Cause</a></li>
+          <li><a href="past-events.html">Past Events</a></li>
           <li><a href="volunteer.html">Volunteer</a></li>
+          <li><a href="host-a-fundraiser.html">Host a Fundraiser</a></li>
+          <li><a href="partner-with-us.html">Partner With Us</a></li>
           <li><a href="donate.html">Donate</a></li>
         </ul>
       </div>
@@ -172,6 +183,7 @@ def footer():
     <div class="footer-bottom">
       <span>&copy; 2026 humanKIND toronto &middot; Greater Toronto Area, Ontario</span>
       <span>Charitable Registration Number: {CHARITY_NO}</span>
+      <span><a href="privacy.html">Privacy</a> &middot; <a href="accessibility.html">Accessibility</a></span>
     </div>
   </div>
   <p class="footer-giant" aria-hidden="true">because the need never stops</p>
@@ -528,12 +540,22 @@ TEAM = [
      "I would choose between two very different places; one would be an Islamic state such as Mecca, Medina or Iraq and the other would be Italy due to its culture, food and the people. I always joke that I should have been born as an Italian Muslim.",
      "Always try to help others (whether it be that little old lady crossing the street or a wounded animal) because no matter how hard life may be for you at this moment; and it will eventually get better with time, hope and faith, there is always someone who is struggling even more… so a helping hand or two will go a long way."),
 ]
+TEAM_PHOTOS = {  # full name -> filename in assets/img/ (square, 600px)
+    "Ashifa Champsi": "team-ashifa.webp",
+    "Salma Valimohamed": "team-salma.webp",
+    "Fatimah Alibhai": "team-fatimah.webp",
+    "Fatima Kamalia": "team-fatima-k.webp",
+}
 team_html = ""
 for i, (name, role, mono, q, a, advice) in enumerate(TEAM):
+    if name in TEAM_PHOTOS:
+        mono_html = f'<div class="team-card__mono"><img src="assets/img/{TEAM_PHOTOS[name]}" alt="Portrait of {esc(name)}" width="300" height="300" loading="lazy"></div>'
+    else:
+        mono_html = f'<div class="team-card__mono" aria-hidden="true">{mono}</div>'
     team_html += f'''<article class="team-card reveal{" reveal-delay-" + str(i) if i else ""}">
   <div class="team-card__inner">
     <div class="team-card__face team-card__front">
-      <div class="team-card__mono" aria-hidden="true">{mono}</div>
+      {mono_html}
       <h3>{name}</h3>
       <p class="team-card__role">{role}</p>
       <button class="team-card__btn" type="button">Get to know {name.split()[0]} {icon("arrow")}</button>
@@ -830,7 +852,7 @@ drives = f'''
   <div class="container split">
     <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start">
       <div class="arch" style="aspect-ratio:3/4">{img("sock-partner-clinic", "Two women at a local clinic holding a sign for the sock drive collection box", sizes="(min-width: 900px) 22vw, 45vw")}</div>
-      <div class="arch arch--down" style="aspect-ratio:3/4;margin-top:50px">{img("sock-partner-office", "Staff at a local business posing beside a Sox Box collection box", sizes="(min-width: 900px) 22vw, 45vw")}</div>
+      <div class="arch arch--down" style="aspect-ratio:3/4;margin-top:50px">{img("sock-partner-office", "People posing beside a Sox Box collection box at a local business", sizes="(min-width: 900px) 22vw, 45vw")}</div>
     </div>
     <div class="reveal reveal-delay-1">
       <p class="eyebrow">Our partners</p>
@@ -891,7 +913,7 @@ sock = f'''
       <h2 id="sock-community">Showing up <em>year after year.</em></h2>
       <p class="lead">This drive is made possible by the generosity of our partners and supporters who show up year after year.</p>
     </div>
-    {gallery([("sock-team-boxes", "Volunteers surrounded by full Sox Box collection boxes"), ("sock-kids-box", "Two children with a Sox Box collection box"), ("sock-foodbank", "Bags of donated socks loaded into a cart beside a community food bank van"), ("sock-partner-clinic", "Partners at a local clinic hosting a sock collection box"), ("sock-sorting", "Volunteers sorting donated socks on the floor"), ("sock-boxes-stack", "A volunteer smiling beside stacked boxes of donated socks"), ("sock-partner-office", "A local business team posing with their Sox Box"), ("sock-boy-boxes", "A young donor with two boxes of new socks")])}
+    {gallery([("sock-team-boxes", "Volunteers surrounded by full Sox Box collection boxes"), ("sock-kids-box", "Two children with a Sox Box collection box"), ("sock-foodbank", "Bags of donated socks loaded into a cart beside a community food bank van"), ("sock-partner-clinic", "Partners at a local clinic hosting a sock collection box"), ("sock-sorting", "Volunteers sorting donated socks on the floor"), ("sock-boxes-stack", "A volunteer smiling beside stacked Sox Box collection boxes"), ("sock-partner-office", "People posing beside a Sox Box at a local business"), ("sock-boy-boxes", "A young donor with two boxes of new socks")])}
     <p class="big-serif center reveal" style="margin:3rem auto 0;max-width:26ch">Together, we turn something small into something meaningful. Because comfort matters. Because dignity matters.</p>
   </div>
 </section>
@@ -1066,8 +1088,9 @@ cfac = f'''
       <p>More than a fundraiser, <strong>Create for a Cause</strong> is a celebration of compassion in action — bringing community members together to support healing, dignity, and hope.</p>
       <p>Our annual Create for a Cause fundraiser gives us the opportunity, not only to connect with all of you but also to raise much-needed funding to sustain our programming and do what we do to help those who need it.</p>
       <ul class="years" aria-label="Past and upcoming Create for a Cause events">
-        <li>2019</li><li>2020</li><li>2021</li><li>2022</li><li>2024</li><li>2025</li><li class="next">2026</li>
+        <li><a href="past-events.html#y2019">2019</a></li><li><a href="past-events.html#y2020">2020</a></li><li><a href="past-events.html#y2021">2021</a></li><li><a href="past-events.html#y2022">2022</a></li><li><a href="past-events.html#y2024">2024</a></li><li><a href="past-events.html#y2025">2025</a></li><li class="next">2026</li>
       </ul>
+      <div class="btn-row">{btn("past-events.html", "See Past Events", "ghost")}</div>
     </div>
   </div>
 </section>
@@ -1168,7 +1191,7 @@ don = f'''
     <div class="cards cards--3">
       <a class="drive-card reveal" href="project-lunchbox.html"><span class="tag">Sponsor</span><div class="drive-card__img">{img("lunchbox-kit", "A Project Lunchbox kit", sizes="(min-width: 1000px) 33vw, 100vw")}</div><div class="drive-card__body"><h3>Sponsor a lunchbox</h3><p>A lunch box, water bottle, food container and healthy snacks.</p><span class="text-link">Project Lunchbox {icon("arrow")}</span></div></a>
       <a class="drive-card reveal reveal-delay-1" href="gift-of-hope.html"><span class="tag">Sponsor</span><div class="drive-card__img">{img("hope-kitchen-items", "New household items gathered for a Gift of Hope box", sizes="(min-width: 1000px) 33vw, 100vw")}</div><div class="drive-card__body"><h3>Sponsor a Gift of Hope box</h3><p>Bedding and comfort items for someone beginning their next chapter.</p><span class="text-link">Gift of Hope {icon("arrow")}</span></div></a>
-      <a class="drive-card reveal reveal-delay-2" href="sock-drive.html"><span class="tag">Collect</span><div class="drive-card__img">{img("sock-boxes-stack", "Stacked boxes of donated socks", sizes="(min-width: 1000px) 33vw, 100vw")}</div><div class="drive-card__body"><h3>Host a collection drive</h3><p>Bring a Sox Box to your school, workplace, or community.</p><span class="text-link">Sock Drive {icon("arrow")}</span></div></a>
+      <a class="drive-card reveal reveal-delay-2" href="sock-drive.html"><span class="tag">Collect</span><div class="drive-card__img">{img("sock-boxes-stack", "Stacked Sox Box collection boxes", sizes="(min-width: 1000px) 33vw, 100vw")}</div><div class="drive-card__body"><h3>Host a collection drive</h3><p>Bring a Sox Box to your school, workplace, or community.</p><span class="text-link">Sock Drive {icon("arrow")}</span></div></a>
     </div>
   </div>
 </section>
@@ -1239,6 +1262,7 @@ con = f'''
               <option value="general">A general enquiry</option>
               <option value="volunteer">Volunteering</option>
               <option value="partner">Partnering with humanKIND</option>
+              <option value="fundraiser">Hosting a fundraiser</option>
               <option value="drive">Hosting a collection drive</option>
               <option value="sponsor">Sponsoring a lunchbox or Gift of Hope box</option>
               <option value="event">Create for a Cause</option>
@@ -1258,6 +1282,214 @@ page("contact.html", "Contact | humanKIND toronto",
      "Get in touch with humanKIND toronto to volunteer, partner, host a collection drive, sponsor a lunchbox or Gift of Hope box, or learn more about our work with GTA shelters.",
      con, con_crumbs, priority="0.7")
 
+# ================================================================= PAST EVENTS
+past_crumbs = HOME + [("Create for a Cause", "create-for-a-cause.html"), ("Past Events", "past-events.html")]
+
+def year_block(year, title, facts, text, photos):
+    facts_html = f'<p class="year__facts">{facts}</p>' if facts else ""
+    return f'''<article class="year" id="y{year}">
+  <div class="year__head reveal"><span class="year__num">{year}</span><h2>{title}</h2>{facts_html}</div>
+  <div class="year__body reveal reveal-delay-1">{text}{gallery(photos, "gallery--year")}</div>
+</article>'''
+
+past = f'''
+{page_hero(past_crumbs, "Create for a Cause", "Years of <em>creating together</em>",
+  "Our annual Create for a Cause fundraiser gives us the opportunity, not only to connect with all of you but also to raise much-needed funding to sustain our programming and do what we do to help those who need it.",
+  "past-2024-11", "Four women smiling in front of the humanKIND banner at a Create for a Cause event", chip="2019 to 2025")}
+
+<section class="section section--tight">
+  <div class="container">
+    <p class="eyebrow">Jump to a year</p>
+    <ul class="year-nav" aria-label="Jump to a year">
+      <li><a href="#y2025">2025</a></li><li><a href="#y2024">2024</a></li><li><a href="#y2022">2022</a></li><li><a href="#y2021">2021</a></li><li><a href="#y2020">2020</a></li><li><a href="#y2019">2019</a></li>
+    </ul>
+
+    {year_block(2025, "Candle-making with Atma Things",
+      "Friday, May 30, 2025 &middot; 6:30 to 9:30 pm &middot; Oak Ridges Community Centre",
+      "<p class=lead>An evening of compassion, community, and commitment.</p><p>More than just candle-making, this workshop blended mindfulness, creativity, and community. Led by Jessie Arora of Atma Things, guests were invited to set their intentions, pour their own soy candle, and customize it with essential oils, herbs, and crystals.</p><p>Proceeds from the fundraiser allow us to continue the work we do to provide programs and support to vulnerable women and children residing in local shelters.</p>",
+      [("past-2025-00", "Poster for the 2025 Create for a Cause fundraiser: a handmade candle workshop with Jessie Arora of Atma Things on Friday, May 30, 6:30 to 9:30 pm")])}
+
+    {year_block(2024, "Clay coasters by Lake Wilcox",
+      "Oak Ridges Community Centre, overlooking Lake Wilcox",
+      "<p>The 2024 Create for a Cause fundraiser was held at the stunning Oak Ridges Community Centre overlooking the serene Lake Wilcox. This picturesque setting provided the perfect backdrop for an evening dedicated to creativity, connection, and community.</p><p>The event featured a hands-on workshop led by team member Salma, where participants crafted beautiful sets of clay coasters. Following the workshop, guests enjoyed a delicious dinner, dessert, and time to socialize in a warm and welcoming atmosphere.</p><p>We extend our heartfelt gratitude to everyone who participated. It was a wonderful evening of bringing together like-minded women while supporting a meaningful cause!</p>",
+      [("past-2024-01", "Four women smiling together outdoors at the 2024 event"), ("past-2024-02", "Guests seated at tables beside large windows with a view of trees"), ("past-2024-03", "Women working on crafts around a decorated table"), ("past-2024-07", "A handmade marbled clay coaster"), ("past-2024-09", "Guests serving themselves dinner from trays of food"), ("past-2024-11", "Four women in front of the humanKIND banner")])}
+
+    {year_block(2022, "Moon Magic Candle workshop",
+      "With Jessie Arora of Atma Things",
+      "<p>For our Create for a Cause fundraiser, we enlisted the help of Jessie Arora of Atma Things to conduct her Moon Magic Candle workshop, and it was a magical night indeed!</p><p>It was a truly beautiful evening, with an amazing group of women coming together with creativity and intention.</p><p>Not only did we have the chance to reconnect with all of you, but we raised awareness and the funding needed to continue offering our programs and initiatives.</p>",
+      [("past-2022-00", "A candle workshop room set with long tables and string lights"), ("past-2022-03", "A grazing table with dips, vegetables and cheese"), ("past-2022-05", "Bowls of dried herbs and flowers for candle blending"), ("past-2022-08", "Guests gathered around a table of essential oils"), ("past-2022-10", "Four women smiling together in front of the humanKIND banner"), ("past-2022-11", "A finished hand-poured candle in a glass jar with a handwritten label")])}
+
+    {year_block(2021, "A second year, virtually",
+      "Virtual workshops",
+      "<p>It was virtual programming for a second year, and while we wanted more than anything to get back to our in-person events, we still managed to put together a wonderfully informative and entertaining series of workshops, hosted by some incredibly talented instructors. We had a blast working alongside you all to quite literally &ldquo;Create for a Cause&rdquo;!</p><p>This year&rsquo;s programming included a heart-pumping workout and meditative cool down, a calligraphy workshop, a hands-on cooking class, as well as a crafting class for kids as a special treat for Mother&rsquo;s Day.</p>",
+      [("past-2021-02", "A woman in a deep lunge on a yoga mat holding a kettlebell"), ("past-2021-03", "A faux calligraphy worksheet with a pen"), ("past-2021-04", "Small homemade pizzas with colourful toppings"), ("past-2021-05", "A candle beside a handmade paper flower craft")])}
+
+    {year_block(2020, "Create for a Cause, online edition",
+      "A 4-week series of virtual workshops",
+      "<p>2020. The year of the Zoom call. The birth of Create for a Cause, Online Edition!</p><p>COVID couldn&rsquo;t stop us from putting on our annual fundraiser. Not only did we get creative, but we got the help of some talented creatives to put on a 4-week series of workshops to get you doodling, cooking, moving, and making!</p><p>While we certainly missed meeting our friends and supporters at our event, we couldn&rsquo;t have been happier with the incredible round-up of talent and enthusiastic participants in attendance for our series of virtual workshops in 2020.</p>",
+      [("past-2020-02", "A hand-drawn floral design around the humanKIND logo"), ("past-2020-03", "Home-cooked dishes on plates and in a skillet"), ("past-2020-04", "A floor cushion and candle on a patterned rug"), ("past-2020-05", "Yarn, paper cutouts and craft supplies laid out on a table")])}
+
+    {year_block(2019, "Our first fundraiser",
+      "Joined by Motives Art Co. and Sandgate Women&rsquo;s Shelter",
+      "<p>Our first ever fundraiser, an engaging night of great art, food and company, all for a worthy cause!</p><p>Joined by Motives Art Co., Sandgate Women&rsquo;s Shelter and a full house of amazing women, we had a fabulous time creating unique abstract pieces, connecting with friends, old and new, and raising awareness about issues affecting women in our communities.</p>",
+      [("past-2019-02", "Five women smiling together at the first Create for a Cause"), ("past-2019-04", "Paint palettes and colourful abstract paintings in progress"), ("past-2019-05", "Women seated around a long table during the painting workshop"), ("past-2019-03", "The word create written in calligraphy")])}
+  </div>
+</section>
+
+{cta_band("The next one is <em>November 20.</em>", "Join us for Create for a Cause 2026, or support women and children in shelters today.", [btn("create-for-a-cause.html", "Event Details", "sand"), btn("donate.html", "Donate", "ghost-light")])}
+'''
+page("past-events.html", "Past Create for a Cause Events, 2019 to 2025 | humanKIND toronto",
+     "A look back at humanKIND toronto’s annual Create for a Cause fundraiser from the first art night in 2019 to the 2025 candle workshop, including our virtual years.",
+     past, past_crumbs, priority="0.6")
+
+# ================================================================= HOST A FUNDRAISER
+host_crumbs = HOME + [("Get Involved", "volunteer.html"), ("Host a Fundraiser", "host-a-fundraiser.html")]
+host = f'''
+{page_hero(host_crumbs, "Get involved", "Host a <em>fundraiser</em>",
+  "From yoga classes and art workshops to bake sales and handcrafted goods, our community continues to find beautiful, creative ways to give back.",
+  "volunteers-tiedye", "A smiling volunteer holding up a hand-dyed pouch she made", chip="your idea, your way")}
+
+<section class="section" aria-labelledby="ideas">
+  <div class="container">
+    <div class="split split--top">
+      <div class="reveal"><p class="eyebrow">Ideas from our community</p><h2 id="ideas">Kindness is <em>contagious.</em></h2></div>
+      <div class="reveal reveal-delay-1"><p class="lead">Individuals and small businesses have hosted fundraisers, donated proceeds from yoga classes and baked goods, and created handmade items in support of our mission.</p></div>
+    </div>
+    <ul class="opps">
+      <li class="opp reveal"><span class="opp__num" aria-hidden="true">01</span><h3>Yoga &amp; fitness classes</h3><p class="muted" style="margin:6px 0 0">Donate the proceeds from a class.</p></li>
+      <li class="opp reveal reveal-delay-1"><span class="opp__num" aria-hidden="true">02</span><h3>Bake sales</h3><p class="muted" style="margin:6px 0 0">Share baked goods and donate what you raise.</p></li>
+      <li class="opp reveal reveal-delay-2"><span class="opp__num" aria-hidden="true">03</span><h3>Handmade goods</h3><p class="muted" style="margin:6px 0 0">Create handmade items in support of the mission.</p></li>
+      <li class="opp reveal reveal-delay-3"><span class="opp__num" aria-hidden="true">04</span><h3>Art workshops</h3><p class="muted" style="margin:6px 0 0">Bring people together to create for a cause.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--sand" aria-labelledby="host-collect">
+  <div class="container split">
+    <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:end">
+      <div class="arch" style="aspect-ratio:3/4">{img("volunteers-yoga", "A woman in a headscarf stretching in a seated yoga pose", sizes="(min-width: 900px) 22vw, 45vw")}</div>
+      <div class="arch arch--down" style="aspect-ratio:3/4;margin-bottom:-30px">{img("sock-boxes-stack", "A volunteer smiling beside stacked Sox Box collection boxes", sizes="(min-width: 900px) 22vw, 45vw")}</div>
+    </div>
+    <div class="reveal reveal-delay-1">
+      <p class="eyebrow">Prefer to collect?</p>
+      <h2 id="host-collect">Host a <em>collection drive.</em></h2>
+      <p>You can also organize a collection drive in your school, workplace, or community for our <a href="sock-drive.html">Sock Drive</a>.</p>
+      {btn("annual-drives.html", "See the Annual Drives", "ghost")}
+    </div>
+  </div>
+</section>
+
+{cta_band("Tell us what you have <em>in mind.</em>", "We endeavour to get back to you within 24 hours.", [btn("contact.html?topic=fundraiser", "Plan a Fundraiser", "sand"), btn("donate.html", "Donate Instead", "ghost-light")])}
+'''
+page("host-a-fundraiser.html", "Host a Fundraiser for Women & Children in Shelters | humanKIND toronto",
+     "Host your own fundraiser for humanKIND toronto: a yoga class, bake sale, handmade goods, art workshop or a collection drive at your school, workplace or community.",
+     host, host_crumbs, priority="0.7")
+
+# ================================================================= PARTNER WITH US
+partner_crumbs = HOME + [("Get Involved", "volunteer.html"), ("Partner With Us", "partner-with-us.html")]
+partner = f'''
+{page_hero(partner_crumbs, "For local businesses", "Partner <em>with us</em>",
+  "Our community partners have been an essential part of the success we’ve achieved in collecting items to donate to our local shelters.",
+  "sock-partner-office", "People posing beside a Sox Box collection box at a local business", chip="giving back, together")}
+
+<section class="section" aria-labelledby="partner-ways">
+  <div class="container">
+    <div class="split split--top">
+      <div class="reveal"><p class="eyebrow">Ways to partner</p><h2 id="partner-ways">More ways for your business to <em>give back.</em></h2></div>
+      <div class="reveal reveal-delay-1"><p class="lead">By partnering with local businesses who house collection boxes onsite, we encourage more community members to contribute to our seasonal drives, and give local businesses more ways to give back.</p></div>
+    </div>
+    <ul class="opps">
+      <li class="opp reveal"><span class="opp__num" aria-hidden="true">01</span><h3>House a collection box</h3><p class="muted" style="margin:6px 0 0">Host a Sox Box or drive box at your business.</p></li>
+      <li class="opp reveal reveal-delay-1"><span class="opp__num" aria-hidden="true">02</span><h3>Sponsor a box</h3><p class="muted" style="margin:6px 0 0">Sponsor a lunchbox or a Gift of Hope box.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--sand" aria-labelledby="partner-seen">
+  <div class="container split">
+    <div class="reveal">
+      <p class="eyebrow">What it looks like</p>
+      <h2 id="partner-seen">Small boxes, <em>big community.</em></h2>
+      <p>This is a collection box at a local business, one of the places in our community where neighbours drop off new socks for women and children in shelters.</p>
+      <div class="btn-row">{btn("sock-drive.html", "About the Sock Drive", "ghost")}{btn("contact.html?topic=partner", "Get in Touch")}</div>
+    </div>
+    <div class="reveal reveal-delay-1" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start">
+      <div class="arch" style="aspect-ratio:3/4">{img("sock-partner-clinic", "Two women at a local clinic holding a sign for the sock drive collection box", sizes="(min-width: 900px) 22vw, 45vw")}</div>
+      <div class="arch arch--down" style="aspect-ratio:3/4;margin-top:50px">{img("sock-boxes-stack", "A volunteer smiling beside stacked Sox Box collection boxes", sizes="(min-width: 900px) 22vw, 45vw")}</div>
+    </div>
+  </div>
+</section>
+
+{cta_band("Let’s do something <em>good together.</em>", "If you would like to participate in an upcoming collection drive as a local business, reach out.", [btn("contact.html?topic=partner", "Partner With Us", "sand"), btn("annual-drives.html", "Annual Drives", "ghost-light")])}
+'''
+page("partner-with-us.html", "Partner With Us: Local Businesses | humanKIND toronto",
+     "Local businesses can partner with humanKIND toronto by housing a collection box onsite or sponsoring a lunchbox or Gift of Hope box, giving the community more ways to give back.",
+     partner, partner_crumbs, priority="0.6")
+
+# ================================================================= PRIVACY
+UPDATED = "October 1, 2026"
+priv_crumbs = HOME + [("Privacy", "privacy.html")]
+priv = f'''
+{page_hero(priv_crumbs, "Legal", "Privacy <em>policy</em>", "How this website handles your information. Last updated: " + UPDATED + ".")}
+<section class="section">
+  <div class="container container--narrow prose">
+    <h2>Who we are</h2>
+    <p>humanKIND toronto is a volunteer-led nonprofit and registered charity serving the Greater Toronto Area (Charitable Registration Number {CHARITY_NO}). You can reach us at <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
+
+    <h2>What this website collects</h2>
+    <p>This website does not use analytics, advertising trackers, or tracking cookies of its own, and it doesn&rsquo;t ask you to create an account.</p>
+
+    <h2>Contact form and email</h2>
+    <p>The contact form on this website doesn&rsquo;t send your message to a server. It opens your own email app with the message filled in. When you press send, your email reaches our inbox at {EMAIL}. We use the details you give us only to respond to your enquiry or follow up on your offer to help.</p>
+
+    <h2>Donations</h2>
+    <p>Donations are made through a secure donation form provided by a third-party platform. It is embedded on our <a href="donate.html">Donate page</a> and also available at its own web address. When you donate, you enter your payment and contact details directly with that provider. This website does not see or store your payment details, and the provider&rsquo;s own privacy practices apply to that form.</p>
+
+    <h2>Hosting and other services</h2>
+    <p>This site is hosted by Cloudflare, which processes technical information such as your IP address in order to deliver pages and keep the site secure. Fonts are loaded from Google Fonts, so your browser contacts Google to download them. Our links to Instagram and Facebook take you to those services, which have their own privacy policies.</p>
+
+    <h2>Your choices</h2>
+    <p>You can ask us what information we hold about you, or ask us to correct or delete it, by emailing <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If how this website works changes, for example if we add a newsletter or analytics, we will update this page and the date above.</p>
+  </div>
+</section>
+'''
+page("privacy.html", "Privacy Policy | humanKIND toronto",
+     "How the humanKIND toronto website handles your information: the site itself uses no analytics or tracking cookies, how the contact form and donation form work, and who to ask about your information.",
+     priv, priv_crumbs, priority="0.3")
+
+# ================================================================= ACCESSIBILITY
+acc_crumbs = HOME + [("Accessibility", "accessibility.html")]
+acc = f'''
+{page_hero(acc_crumbs, "Legal", "Accessibility <em>statement</em>", "We want everyone to be able to use this website. Last updated: " + UPDATED + ".")}
+<section class="section">
+  <div class="container container--narrow prose">
+    <h2>Our aim</h2>
+    <p>We want this website to work for people who use screen readers, keyboards, voice control or screen magnifiers. We are working toward meeting the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA.</p>
+
+    <h2>What we&rsquo;ve built in</h2>
+    <ul>
+      <li>A &ldquo;Skip to content&rdquo; link at the top of every page.</li>
+      <li>Menus, accordions and flip cards you can operate with a keyboard, with a visible focus outline.</li>
+      <li>Descriptive alternative text on photos.</li>
+      <li>A layout that adapts from phones to large screens.</li>
+      <li>Animation that switches off if your device is set to reduce motion.</li>
+    </ul>
+
+    <h2>Where we may fall short</h2>
+    <p>We haven&rsquo;t yet had an independent accessibility audit, so there may be problems we haven&rsquo;t found. The donation form on our Donate page is provided by a third party and we can&rsquo;t change how it works. If you have trouble using it, email us and we&rsquo;ll do our best to help.</p>
+
+    <h2>Tell us what&rsquo;s not working</h2>
+    <p>If you run into a barrier on this website, please email <a href="mailto:{EMAIL}">{EMAIL}</a> and tell us the page and what happened. We endeavour to get back to you within 24 hours.</p>
+  </div>
+</section>
+'''
+page("accessibility.html", "Accessibility Statement | humanKIND toronto",
+     "Our commitment to an accessible humanKIND toronto website: what we’ve built in, where we may fall short, and how to report a problem.",
+     acc, acc_crumbs, priority="0.3")
+
 # ================================================================= 404
 nf = f'''
 <section class="section notfound">
@@ -1273,15 +1505,21 @@ page("404.html", "Page Not Found | humanKIND toronto", "The page you were lookin
 # ================================================================= sitemap / robots / redirects
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
 for url, pr in PAGES:
-    sm.append(f"  <url><loc>{url}</loc><lastmod>2026-09-30</lastmod><priority>{pr}</priority></url>")
+    sm.append(f"  <url><loc>{url}</loc><lastmod>{LASTMOD}</lastmod><priority>{pr}</priority></url>")
 sm.append("</urlset>")
 open(os.path.join(SITE, "sitemap.xml"), "w").write("\n".join(sm) + "\n")
 open(os.path.join(SITE, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\n\nSitemap: {BASE}/sitemap.xml\n")
 open(os.path.join(SITE, "_redirects"), "w").write("""# 301s from old Squarespace URLs that were renamed (Netlify / Cloudflare Pages format).
 # /about, /annual-drives, /contact and /donate keep the same path, so they need no rule.
+# The old per-year pages (/fundraising/create-for-a-cause-2025 etc.) all land on the Past Events page.
 /on-site                   /programs             301
-/fundraising               /create-for-a-cause   301
+/fundraising               /past-events          301
+/fundraising/*             /past-events          301
 /create-for-a-cause-2026   /create-for-a-cause   301
 /covid19-1                 /our-story            301
+/annual-drives/no-more-cold-feet-sock-drive   /sock-drive         301
+/annual-drives/give-the-gift-of-hope           /gift-of-hope       301
+/annual-drives/project-backpack-summer         /project-lunchbox   301
+/recipes                   /programs             301
 """)
 print("built", len(PAGES) + 1, "pages")
