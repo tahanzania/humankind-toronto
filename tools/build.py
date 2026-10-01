@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""Generates the static humanKIND toronto pages into ../site/ (plain HTML output).
+"""Generates the static humanKIND toronto pages into the repo root (plain HTML output).
 
 Usage:  python3 tools/build.py      (Python 3, standard library only)
 
-Every .html page, sitemap.xml, robots.txt and _redirects in site/ is written by this
+Every .html page, sitemap.xml, robots.txt and _redirects in the repo root is written by this
 script, so edit the copy and shared header/footer here, not in the generated files.
-CSS, JS and images in site/assets/ are NOT generated; edit those directly.
+CSS, JS and images in assets/ are NOT generated; edit those directly.
 """
 import json, os, html as _html
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SITE = os.path.join(os.path.dirname(HERE), "site")
+SITE = os.path.dirname(HERE)  # the repo root is the published site
 BASE = "https://www.humankindtoronto.org"
 META = json.load(open(os.path.join(HERE, "imgmeta.json")))  # {image name: [width, height]}
 EMAIL = "helpforhumankind@gmail.com"

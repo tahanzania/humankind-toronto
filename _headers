@@ -13,3 +13,9 @@
   Cache-Control: public, max-age=3600, must-revalidate
 /assets/js/*
   Cache-Control: public, max-age=3600, must-revalidate
+
+# Repo files that are not part of the website: keep them out of search results.
+/tools/*
+  X-Robots-Tag: noindex
+/README.md
+  X-Robots-Tag: noindex

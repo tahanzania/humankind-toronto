@@ -8,3 +8,6 @@ hK website photo options */
 # Local tooling
 node_modules/
 *.log
+
+# Client copy doc: contains internal editor comments, kept local only (never publish)
+docs/
